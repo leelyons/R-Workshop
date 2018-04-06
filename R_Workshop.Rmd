@@ -1,0 +1,48 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```{r}
+cats <- data.frame(coat = c("calico", "black", "tabby"), 
+                    weight = c(2.1, 5.0,3.2), 
+                    likes_string = c(1, 0, 1))
+write.csv(x = cats, file = "data/feline-data.csv", row.names = FALSE)
+cats <- read.csv(file = "data/feline-data.csv")
+cats
+cats$weight +2
+paste("My cat is", cats$coat)
+cats$weight+cats$coat
+```
+```{r}
+age <- c(2,3,5)
+cbind(cats,age)
+newRows<-list("tabby",4, TRUE,5.7,6)
+cats<- rbind(cats, newRows)
+levels(cats$coat)<-c(levels(cats$coat),"tortoiseshell")
+str(cats$coat)
+cats$coat<-as.character(cats$coat)
+cats<-rbind(cats,cats)
+```
+```{r}
+GM_data<- read.csv("C:/Users/Lee Ann/Desktop/my_project/data/gapminder-FiveYearData.csv")
+View(GM_data)
+str(GM_data)
+dim (GM_data)
+
+```
+
