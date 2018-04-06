@@ -74,10 +74,8 @@ az.countries <- GM_data[starts.with %in% c("B", "U"), ]
 ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country)
 
-pdf("gapminder.pdf", height=4, width=4)
-ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country)
-dev.off()
+
+
 
 ```
 
