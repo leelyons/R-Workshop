@@ -1,6 +1,9 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  word_document: default
+  pdf_document: default
+  html_notebook: default
 ---
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
@@ -18,6 +21,8 @@ When you save the notebook, an HTML file containing the code and output will be 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
 ```{r}
+library(knitr)
+
 cats <- data.frame(coat = c("calico", "black", "tabby"), 
                     weight = c(2.1, 5.0,3.2), 
                     likes_string = c(1, 0, 1))
@@ -43,6 +48,37 @@ GM_data<- read.csv("C:/Users/Lee Ann/Desktop/my_project/data/gapminder-FiveYearD
 View(GM_data)
 str(GM_data)
 dim (GM_data)
+x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) <- c('a', 'b', 'c', 'd', 'e')
+x
+americas<-subset(GM_data,continent=="Americas", select=c(country,year))
+mean(GM_data$lifeExp)
+summary(GM_data$lifeExp)
+
+library(doBy)
+summaryBy(lifeExp~continent,GM_data,FUN = mean)
+write.csv(americas, file="americas.csv")
+```
+making plots (SJplot package is also good)
+```{r}
+
+library(ggplot2)
+ggplot(data=GM_data, aes(x=gdpPercap, y=lifeExp))+geom_point(aes(color=continent))
+ggplot(data=GM_data, aes(x=gdpPercap, y=lifeExp))+geom_point(aes(color=continent))+labs(x="GDP/capita", y="Life Expectancy")
+ggplot(data=GM_data, aes(x=year, y=lifeExp))+geom_point(aes(color=year))+labs(x="Year", y="Life Expectancy")
+ggplot(data=GM_data, aes(x=year, y=lifeExp, by=country))+geom_line(aes(color=continent))+labs(x="Year", y="Life Expectancy")
+ggplot(data=GM_data, aes(x=gdpPercap, y=lifeExp))+geom_point(shape=5,size=3,aes(color=continent))+labs(x="GDP/capita", y="Life Expectancy")
+
+starts.with <- substr(GM_data$country, start = 1, stop = 1)
+az.countries <- GM_data[starts.with %in% c("B", "U"), ]
+ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
+  geom_line() + facet_wrap( ~ country)
+
+pdf("gapminder.pdf", height=4, width=4)
+ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
+  geom_line() + facet_wrap( ~ country)
+dev.off()
 
 ```
+
 
